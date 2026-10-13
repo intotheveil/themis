@@ -334,6 +334,8 @@ typecheck` · `npm run build` · `npm run e2e`. Deploy = push to `main` → `.gi
 
 ## 5. GOTCHAS (hard-won "don't do X, it breaks Y")
 
+- **💾 Drive F: changed hardware on 2026-10-13 — every path is unchanged.** F: used to be the external USB Kingston (exFAT, 1.9 TB). It is now the internal 4 TB Lexar NVMe (NTFS, label `Storage`): all its data was copied across and the new disk took the letter F:. Every `F:\…` path, and every junction on C: that points into F: (Last Seen, Stay Inside and the other Unreal projects, Reliquary's `art_src`/`build`), still resolves. The USB disk is unplugged. Older notes that blame F: being USB or exFAT (slow I/O, file locks, no file ownership) may no longer hold, and NTFS now records file ownership, so git may ask for `safe.directory` on a repo there.
+
 - **Every migration must survive being run twice** — `db:gate` re-applies the whole archive.
   `create policy` and `create type` have no `if not exists`: use `drop policy if exists` first and a
   `do $$ … exception when duplicate_object` block for enums.
